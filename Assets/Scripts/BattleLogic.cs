@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class BattleLogic : MonoBehaviour
 {
-    public int CurrentCharacterHealth { get; private set; }
-    public int CurrentDragonHealth { get; private set; }
+    public int CurrentCharacterHealth { get; private set; }  // Character's current health
+    public int CurrentDragonHealth { get; private set; }  // Dragon's current health
 
     [Header("HealthLine")]
-    public Slider SliderCharacterHealth;
-    public Slider SliderDragonHealth;
+    public Slider SliderCharacterHealth;  // Character health slider
+    public Slider SliderDragonHealth;  // Âêôïùò health slider
 
     [Header("Result")]
-    public Text TextResult;
+    public Text TextResult;  // text for the GameOver panel
 
     private int maxCharacterHealth = 100;
     private int maxDragonHealth = 100;
@@ -37,7 +37,7 @@ public class BattleLogic : MonoBehaviour
         ResultButtle();
     }
 
-    public void CharacterHit(int health)
+    public void CharacterHit(int health)  // The method of taking damage for the character
     {
         if(CurrentCharacterHealth >= 0)
             CurrentCharacterHealth -= health;
@@ -45,7 +45,7 @@ public class BattleLogic : MonoBehaviour
         SliderCharacterHealth.value = CurrentCharacterHealth;
     }
 
-    public void DragonHit(int health)
+    public void DragonHit(int health)  // The method of taking damage for the dragon
     {
         if (CurrentDragonHealth >= 0)
             CurrentDragonHealth -= health;
@@ -53,12 +53,15 @@ public class BattleLogic : MonoBehaviour
         SliderDragonHealth.value = CurrentDragonHealth;
     }
 
-    public void ResultButtle()
+    public void ResultButtle()  // Method for determining the result at the end of health for characters
     {
-        if (CurrentDragonHealth <= 0)
+        if (CurrentDragonHealth <= 0 && CurrentCharacterHealth > 0)
             TextResult.text = "You Win!";
 
-        if (CurrentCharacterHealth <= 0)
+        if (CurrentCharacterHealth <= 0 && CurrentDragonHealth > 0)
             TextResult.text = "You Lose!";
+
+        if(CurrentCharacterHealth <= 0 && CurrentDragonHealth <= 0)
+            TextResult.text = "Tie!";
     }
 }

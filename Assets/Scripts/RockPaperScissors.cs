@@ -15,6 +15,10 @@ public class RockPaperScissors : MonoBehaviour
     public Image DragonChoiceImage;
     public Text TieText;
 
+    [Header("Animations")]
+    public AnimationDragon animationDragon;
+    public AnimationCharacter animationCharacter;
+
     private BattleLogic battleLogic;
 
     private void Start()
@@ -23,7 +27,7 @@ public class RockPaperScissors : MonoBehaviour
         TieText.text = string.Empty;
     }
 
-    public void ClickActions(string choise)
+    public void ClickActions(string choise)  // Selection comparison method Stone, paper, scissors, for dragon
     {
         var randomDragonChoice = NameChoice[Random.Range(0, NameChoice.Length)];
 
@@ -39,16 +43,18 @@ public class RockPaperScissors : MonoBehaviour
                             break;
 
                         case "Paper":
-                            battleLogic.DragonHit(10);
+                            battleLogic.DragonHit(10);  //Taking damage  
+                            animationCharacter.PlayeCharacterAnimation(); //Play Character animation
                             break;
 
                         case "Scissors":
                             battleLogic.CharacterHit(10);
+                            animationDragon.PlayeDragonAnimation();  //Play Dragon animation
                             break;
 
                     }
 
-                    DragonChoiceImage.sprite = Rock;
+                    DragonChoiceImage.sprite = Rock;  // Assigning the selected picture to the dragon
                     break;
 
                 case "Paper":
@@ -56,6 +62,7 @@ public class RockPaperScissors : MonoBehaviour
                     {
                         case "Rock":
                             battleLogic.CharacterHit(10);
+                            animationDragon.PlayeDragonAnimation();
                             break;
 
                         case "Paper":
@@ -64,6 +71,7 @@ public class RockPaperScissors : MonoBehaviour
 
                         case "Scissors":
                             battleLogic.DragonHit(10);
+                            animationCharacter.PlayeCharacterAnimation();
                             break;
 
                     }
@@ -76,10 +84,12 @@ public class RockPaperScissors : MonoBehaviour
                     {
                         case "Rock":
                             battleLogic.DragonHit(10);
+                            animationCharacter.PlayeCharacterAnimation();
                             break;
 
                         case "Paper":
                             battleLogic.CharacterHit(10);
+                            animationDragon.PlayeDragonAnimation();
                             break;
 
                         case "Scissors":
